@@ -12,7 +12,7 @@
 
 'use strict';
 
-var jq = unsafeWindow.jQuery;
+var jq = window.jQuery;
 var refresh;
 
 jq(document).ready(function(){
