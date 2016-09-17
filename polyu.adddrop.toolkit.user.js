@@ -20,7 +20,13 @@ jq(document).ready(function(){
   jq('input[name$="AddSubjectButton_"]').click(function(){
     sessionStorage['subjectId'] = jq(this).parent().prev().find('select option:first').attr('value');
     sessionStorage['subjectCode'] = jq(this).parent().prev().prev().prev().prev().find('span').text();
-    sessionStorage['searchType'] = jq(this).attr('name').match(/advSearch/i) ? 'adv' : 'basic';
+    if(jq(this).attr('name').match(/basicSearch/i)){
+      sessionStorage['searchType'] = 'basic';
+    }else if(jq(this).attr('name').match(/advSearch/i)){
+      sessionStorage['searchType'] = 'adv';
+    }else if(jq(this).attr('name').match(/retakePass/i)){
+      sessionStorage['searchType'] = 'retakePass';
+    }
     var idSplit = jq(this).attr('id').split(':');
     sessionStorage['eleId'] = idSplit[0] + ':' + idSplit[1] + ':' + idSplit[2];
   });
@@ -44,12 +50,15 @@ jq(document).ready(function(){
       dataObj['mainForm:basicSearchSubjectCode'] = sessionStorage['subjectCode'];
       dataObj[`${sessionStorage['eleId']}:basicSearchAddSubjectButton_`] = '+';
       dataObj[`${sessionStorage['eleId']}:basicSearchSubjectGroup_`] = sessionStorage['subjectId'];
-    }else{
+    }else if(sessionStorage['searchType'] === 'adv'){
       dataObj['mainForm:advSearchCategory'] = '';
       dataObj['mainForm:advSearchProgId'] = 0;
       dataObj['mainForm:advSearchSubjectCode'] = '';
       dataObj[`${sessionStorage['eleId']}:advSearchAddSubjectButton_`] = '+';
       dataObj[`${sessionStorage['eleId']}:advSearchSubjectGroup_`] = sessionStorage['subjectId'];
+    }else if(sessionStorage['searchType'] === 'retakePass'){
+      dataObj[`${sessionStorage['eleId']}:retakePassAddSubjectButton_`] = '+';
+      dataObj[`${sessionStorage['eleId']}:retakePassSubjectGroup_`] = sessionStorage['subjectId'];
     }
     refresh = setInterval(function(){
       jq.post('https://www38.polyu.edu.hk/eStudent/secure/my-subject-registration/subject-register-select-subject.jsf', dataObj, function(data){
