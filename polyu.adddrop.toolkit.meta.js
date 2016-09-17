@@ -6,6 +6,6 @@
 // @include     https://www38.polyu.edu.hk/eStudent/secure/my-subject-registration/subject-register-select-subject.jsf
 // @updateURL   https://raw.githubusercontent.com/Marco129/PolyUAddDropToolkit/master/polyu.adddrop.toolkit.meta.js
 // @downloadURL https://raw.githubusercontent.com/Marco129/PolyUAddDropToolkit/master/polyu.adddrop.toolkit.user.js
-// @version     1.0
+// @version     1.1
 // @grant       none
 // ==/UserScript==
